@@ -1,0 +1,37 @@
+<!DOCTYPE  HTML>
+<h1> {{title}} </h1>
+ <input type="text" [(ngModel)]="location" />
+<button (click)="findLocationbyName($event)">Find location</button>   
+ <input type="text" [(ngModel)]="latitude" />
+ <input type="text" [(ngModel)]="longitude" />
+ <h1>{{location}}</h1>  
+ <button (click)="findLocationByGeoCode($event)">Locate</button>   
+<div style="height:100%; width:100%;">
+ <sebm-google-map 
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)">
+     <sebm-google-map-marker
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)">
+         <sebm-google-map-info-window>
+          <strong>InfoWindow content</strong>
+        </sebm-google-map-info-window>
+      </sebm-google-map-marker>
+      <sebm-google-map-circle [latitude]="lat + 0.3" [longitude]="lng" 
+          [radius]="5000"
+          [fillColor]="'red'"
+          [circleDraggable]="true"
+          [editable]="true">
+      </sebm-google-map-circle>
+</sebm-google-map>
+</div>
+
